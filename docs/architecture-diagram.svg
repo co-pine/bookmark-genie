@@ -1,0 +1,264 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="chromeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="reactGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="dataGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="3" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#64748b"/>
+    </marker>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1000" height="700" fill="url(#bgGradient)"/>
+  
+  <!-- 标题 -->
+  <text x="500" y="35" text-anchor="middle" fill="#f8fafc" font-size="24" font-weight="bold" font-family="Arial, sans-serif">
+    书签精灵
+  </text>
+  
+  <!-- Chrome扩展层 -->
+  <g transform="translate(50, 70)">
+    <rect x="0" y="0" width="900" height="80" rx="12" fill="url(#chromeGradient)" filter="url(#shadow)"/>
+    <text x="450" y="25" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Chrome 浏览器扩展层</text>
+    
+    <!-- Manifest V3 -->
+    <rect x="40" y="35" width="120" height="35" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="100" y="50" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Manifest V3</text>
+    <text x="100" y="62" text-anchor="middle" fill="white" font-size="8">扩展配置</text>
+    
+    <!-- Service Worker -->
+    <rect x="180" y="35" width="120" height="35" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="240" y="50" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Service Worker</text>
+    <text x="240" y="62" text-anchor="middle" fill="white" font-size="8">后台服务</text>
+    
+    <!-- Content Script -->
+    <rect x="320" y="35" width="120" height="35" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="380" y="50" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Content Script</text>
+    <text x="380" y="62" text-anchor="middle" fill="white" font-size="8">内容脚本</text>
+    
+    <!-- Popup UI -->
+    <rect x="460" y="35" width="120" height="35" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="520" y="50" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Popup UI</text>
+    <text x="520" y="62" text-anchor="middle" fill="white" font-size="8">弹窗界面</text>
+    
+    <!-- Commands -->
+    <rect x="600" y="35" width="120" height="35" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="660" y="50" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Commands</text>
+    <text x="660" y="62" text-anchor="middle" fill="white" font-size="8">Ctrl+K快捷键</text>
+    
+    <!-- Permissions -->
+    <rect x="740" y="35" width="120" height="35" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="800" y="50" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Permissions</text>
+    <text x="800" y="62" text-anchor="middle" fill="white" font-size="8">权限管理</text>
+  </g>
+  
+  <!-- React应用层 -->
+  <g transform="translate(50, 180)">
+    <rect x="0" y="0" width="900" height="140" rx="12" fill="url(#reactGradient)" filter="url(#shadow)"/>
+    <text x="450" y="25" text-anchor="middle" fill="white" font-size="16" font-weight="bold">React 18 + TypeScript 应用层</text>
+    
+    <!-- 主要组件 -->
+    <g transform="translate(25, 40)">
+      <!-- App -->
+      <rect x="0" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="42.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">App</text>
+      <text x="42.5" y="32" text-anchor="middle" fill="white" font-size="7">主应用</text>
+      
+      <!-- ChatInterface -->
+      <rect x="95" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="137.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">ChatInterface</text>
+      <text x="137.5" y="32" text-anchor="middle" fill="white" font-size="7">聊天界面</text>
+      
+      <!-- MessageList -->
+      <rect x="190" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="232.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">MessageList</text>
+      <text x="232.5" y="32" text-anchor="middle" fill="white" font-size="7">消息列表</text>
+      
+      <!-- MessageInput -->
+      <rect x="285" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="327.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">MessageInput</text>
+      <text x="327.5" y="32" text-anchor="middle" fill="white" font-size="7">消息输入</text>
+      
+      <!-- MessageBubble -->
+      <rect x="380" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="422.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">MessageBubble</text>
+      <text x="422.5" y="32" text-anchor="middle" fill="white" font-size="7">消息气泡</text>
+      
+      <!-- BookmarkCard -->
+      <rect x="475" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="517.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">BookmarkCard</text>
+      <text x="517.5" y="32" text-anchor="middle" fill="white" font-size="7">书签卡片</text>
+      
+      <!-- SettingsPage -->
+      <rect x="570" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="612.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">SettingsPage</text>
+      <text x="612.5" y="32" text-anchor="middle" fill="white" font-size="7">设置页面</text>
+      
+      <!-- Header -->
+      <rect x="665" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="707.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Header</text>
+      <text x="707.5" y="32" text-anchor="middle" fill="white" font-size="7">头部组件</text>
+      
+      <!-- LoadingIndicator -->
+      <rect x="760" y="0" width="85" height="50" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+      <text x="802.5" y="20" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Loading</text>
+      <text x="802.5" y="32" text-anchor="middle" fill="white" font-size="7">加载指示器</text>
+    </g>
+    
+    <!-- Hooks和优化组件 -->
+    <g transform="translate(40, 100)">
+      <text x="0" y="15" fill="white" font-size="11" font-weight="bold">Hooks和优化:</text>
+      
+      <rect x="80" y="0" width="100" height="25" rx="4" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1"/>
+      <text x="130" y="16" text-anchor="middle" fill="white" font-size="8">useThrottledValue</text>
+      
+      <rect x="200" y="0" width="100" height="25" rx="4" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1"/>
+      <text x="250" y="16" text-anchor="middle" fill="white" font-size="8">OptimizedRenderer</text>
+      
+      <rect x="320" y="0" width="80" height="25" rx="4" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1"/>
+      <text x="360" y="16" text-anchor="middle" fill="white" font-size="8">React.memo</text>
+    </g>
+  </g>
+  
+  <!-- AI智能核心和数据层 -->
+  <g transform="translate(50, 350)">
+    <!-- AI智能核心 -->
+    <g transform="translate(0, 0)">
+      <circle cx="100" cy="60" r="50" fill="url(#aiGradient)" filter="url(#glow)"/>
+      <text x="100" y="55" text-anchor="middle" fill="white" font-size="12" font-weight="bold">AI 智能核心</text>
+      <text x="100" y="70" text-anchor="middle" fill="white" font-size="9">GPT-4 兼容API</text>
+      
+      <!-- AI功能模块 -->
+      <rect x="220" y="10" width="100" height="30" rx="6" fill="rgba(59, 130, 246, 0.3)" stroke="#3b82f6" stroke-width="1"/>
+      <text x="270" y="22" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold">流式响应</text>
+      <text x="270" y="33" text-anchor="middle" fill="#3b82f6" font-size="7">实时对话</text>
+      
+      <rect x="220" y="50" width="100" height="30" rx="6" fill="rgba(59, 130, 246, 0.3)" stroke="#3b82f6" stroke-width="1"/>
+      <text x="270" y="62" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold">智能搜索</text>
+      <text x="270" y="73" text-anchor="middle" fill="#3b82f6" font-size="7">语义理解</text>
+      
+      <rect x="220" y="90" width="100" height="30" rx="6" fill="rgba(59, 130, 246, 0.3)" stroke="#3b82f6" stroke-width="1"/>
+      <text x="270" y="102" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold">智能降级</text>
+      <text x="270" y="113" text-anchor="middle" fill="#3b82f6" font-size="7">本地搜索</text>
+    </g>
+    
+    <!-- 数据管理层 -->
+    <g transform="translate(350, 0)">
+      <rect x="0" y="0" width="550" height="130" rx="12" fill="url(#dataGradient)" filter="url(#shadow)"/>
+      <text x="265" y="25" text-anchor="middle" fill="white" font-size="16" font-weight="bold">数据管理层</text>
+      
+      <!-- 工具模块 -->
+      <g transform="translate(15, 40)">
+        <!-- BookmarkManager -->
+        <rect x="0" y="0" width="115" height="65" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+        <text x="57.5" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">BookmarkManager</text>
+        <text x="57.5" y="35" text-anchor="middle" fill="white" font-size="8">书签管理器</text>
+        <text x="57.5" y="48" text-anchor="middle" fill="white" font-size="7">Chrome API</text>
+        <text x="57.5" y="60" text-anchor="middle" fill="white" font-size="7">智能搜索算法</text>
+        
+        <!-- Storage -->
+        <rect x="135" y="0" width="115" height="65" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+        <text x="192.5" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Storage</text>
+        <text x="192.5" y="35" text-anchor="middle" fill="white" font-size="8">存储管理</text>
+        <text x="192.5" y="48" text-anchor="middle" fill="white" font-size="7">配置和缓存</text>
+        <text x="192.5" y="60" text-anchor="middle" fill="white" font-size="7">Chrome Storage</text>
+        
+        <!-- AI API Client -->
+        <rect x="270" y="0" width="115" height="65" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+        <text x="327.5" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">AI API Client</text>
+        <text x="327.5" y="35" text-anchor="middle" fill="white" font-size="8">API客户端</text>
+        <text x="327.5" y="48" text-anchor="middle" fill="white" font-size="7">流式请求</text>
+        <text x="327.5" y="60" text-anchor="middle" fill="white" font-size="7">错误处理</text>
+        
+        <!-- AI Search -->
+        <rect x="405" y="0" width="115" height="65" rx="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+        <text x="462.5" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">AI Search</text>
+        <text x="462.5" y="35" text-anchor="middle" fill="white" font-size="8">AI搜索引擎</text>
+        <text x="462.5" y="48" text-anchor="middle" fill="white" font-size="7">混合搜索</text>
+        <text x="462.5" y="60" text-anchor="middle" fill="white" font-size="7">相关性评分</text>
+      </g>
+    </g>
+  </g>
+  
+  <!-- 连接箭头 - 优化位置 -->
+  <!-- Chrome到React -->
+  <path d="M 500 150 L 500 180" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- React到AI -->
+  <path d="M 200 320 L 150 360" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- React到Data -->
+  <path d="M 600 320 L 650 350" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- AI到Data -->
+  <path d="M 200 410 L 267 410" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 技术栈标签 -->
+  <g transform="translate(50, 510)">
+    <rect x="0" y="0" width="900" height="120" rx="8" fill="rgba(15, 23, 42, 0.8)" stroke="#334155" stroke-width="1"/>
+    
+    <text x="20" y="25" fill="#94a3b8" font-size="12" font-weight="bold">核心技术栈:</text>
+    <text x="120" y="25" fill="#06b6d4" font-size="11">React 18</text>
+    <text x="190" y="25" fill="#3b82f6" font-size="11">TypeScript</text>
+    <text x="270" y="25" fill="#10b981" font-size="11">Tailwind CSS</text>
+    <text x="360" y="25" fill="#f59e0b" font-size="11">Vite</text>
+    <text x="410" y="25" fill="#8b5cf6" font-size="11">Chrome Extension</text>
+    <text x="540" y="25" fill="#ef4444" font-size="11">Lucide React</text>
+    <text x="630" y="25" fill="#84cc16" font-size="11">React Markdown</text>
+    
+    <text x="20" y="50" fill="#94a3b8" font-size="12" font-weight="bold">性能优化:</text>
+    <text x="120" y="50" fill="#ef4444" font-size="11">requestAnimationFrame</text>
+    <text x="280" y="50" fill="#f97316" font-size="11">React.memo</text>
+    <text x="360" y="50" fill="#84cc16" font-size="11">自定义Hooks</text>
+    <text x="460" y="50" fill="#06b6d4" font-size="11">流式渲染优化</text>
+    <text x="570" y="50" fill="#8b5cf6" font-size="11">智能节流</text>
+    
+    <text x="20" y="75" fill="#94a3b8" font-size="12" font-weight="bold">构建工具:</text>
+    <text x="120" y="75" fill="#f59e0b" font-size="11">Vite 4.x</text>
+    <text x="190" y="75" fill="#10b981" font-size="11">ESLint</text>
+    <text x="250" y="75" fill="#3b82f6" font-size="11">PostCSS</text>
+    <text x="310" y="75" fill="#ef4444" font-size="11">Autoprefixer</text>
+    <text x="400" y="75" fill="#8b5cf6" font-size="11">自定义构建脚本</text>
+    
+    <text x="20" y="100" fill="#94a3b8" font-size="12" font-weight="bold">扩展特性:</text>
+    <text x="120" y="100" fill="#10b981" font-size="11">Manifest V3</text>
+    <text x="220" y="100" fill="#06b6d4" font-size="11">Service Worker</text>
+    <text x="330" y="100" fill="#f59e0b" font-size="11">Content Scripts</text>
+    <text x="440" y="100" fill="#ef4444" font-size="11">Chrome APIs</text>
+    <text x="530" y="100" fill="#8b5cf6" font-size="11">快捷键支持</text>
+  </g>
+</svg>
