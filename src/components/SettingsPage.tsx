@@ -4,6 +4,27 @@ import { StorageManager } from "@/utils/storage";
 import { Settings, Save, Key, Zap, Palette, Keyboard } from "lucide-react";
 import { cn } from "@/utils/cn";
 
+// 定义baseUrl到模型列表的映射
+type ModelMapType = {
+  [key: string]: string[];
+  "https://open.bigmodel.cn/api/paas/v4": string[];
+  "https://api.openai.com/v1": string[];
+  "https://api.deepseek.com/v1": string[];
+  "custom": string[];
+};
+
+const BASE_URL_MODEL_MAP: ModelMapType = {
+  "https://open.bigmodel.cn/api/paas/v4": ["glm-4-flash", "glm-4-plus", "glm-4-air", "glm-4-airx", "glm-4-long", "glm-4v-plus", "glm-4.5-air"],
+  "https://api.openai.com/v1": ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo", "gpt-4o"],
+  "https://api.deepseek.com/v1": ["deepseek-chat", "deepseek-coder"],
+  "custom": []
+};
+
+// 获取指定baseUrl的默认模型
+const getDefaultModel = (baseUrl: string): string => {
+  return BASE_URL_MODEL_MAP[baseUrl]?.[0] || "";
+};
+
 interface SettingsPageProps {
   onClose: () => void;
 }
@@ -213,15 +234,34 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                   </label>
                   <select
                     value={settings.aiConfig.baseUrl}
-                    onChange={(e) =>
-                      setSettings({
-                        ...settings,
-                        aiConfig: {
-                          ...settings.aiConfig,
-                          baseUrl: e.target.value,
-                        },
-                      })
-                    }
+                    onChange={(e) => {
+                      const newBaseUrl = e.target.value;
+                      
+                      // 获取默认模型（列表的第一个）
+                      const defaultModel = getDefaultModel(newBaseUrl);
+                      
+                      // 如果是自定义URL，保留当前模型
+                      if (newBaseUrl === "custom") {
+                        setSettings({
+                          ...settings,
+                          aiConfig: {
+                            ...settings.aiConfig,
+                            baseUrl: newBaseUrl,
+                          },
+                        });
+                      } else {
+                        // 否则设置为默认模型并清除自定义模型
+                        setSettings({
+                          ...settings,
+                          aiConfig: {
+                            ...settings.aiConfig,
+                            baseUrl: newBaseUrl,
+                            model: defaultModel,
+                            customModel: "",
+                          },
+                        });
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   >
                     <option value="https://open.bigmodel.cn/api/paas/v4">
@@ -238,15 +278,16 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                       type="text"
                       placeholder="输入自定义API Base URL"
                       className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      onChange={(e) =>
+                      onChange={(e) => {
+                        const customUrl = e.target.value;
                         setSettings({
                           ...settings,
                           aiConfig: {
                             ...settings.aiConfig,
-                            baseUrl: e.target.value,
+                            baseUrl: customUrl,
                           },
-                        })
-                      }
+                        });
+                      }}
                     />
                   )}
                 </div>
@@ -308,28 +349,46 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                     }}
                     className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm mb-2"
                   >
+                    {/* 根据当前baseUrl显示对应的模型列表 */}
                     {settings.aiConfig.baseUrl.includes("bigmodel") ? (
-                      <>
-                        <option value="glm-4-flash">GLM-4-Flash</option>
-                        <option value="glm-4-plus">GLM-4-Plus</option>
-                        <option value="glm-4-air">GLM-4-Air</option>
-                        <option value="glm-4-airx">GLM-4-AirX</option>
-                        <option value="glm-4-long">GLM-4-Long</option>
-                        <option value="glm-4v-plus">GLM-4V-Plus</option>
-                        <option value="glm-4.5-air">GLM-4.5-Air</option>
-                      </>
+                      // 智谱AI模型
+                      BASE_URL_MODEL_MAP["https://open.bigmodel.cn/api/paas/v4"].map((model) => (
+                        <option key={model} value={model}>{model}</option>
+                      ))
                     ) : settings.aiConfig.baseUrl.includes("deepseek") ? (
+                      // DeepSeek模型
+                      BASE_URL_MODEL_MAP["https://api.deepseek.com/v1"].map((model) => (
+                        <option key={model} value={model}>{model}</option>
+                      ))
+                    ) : settings.aiConfig.baseUrl.includes("openai") ? (
+                      // OpenAI模型
+                      BASE_URL_MODEL_MAP["https://api.openai.com/v1"].map((model) => (
+                        <option key={model} value={model}>{model}</option>
+                      ))
+                    ) : settings.aiConfig.baseUrl === "custom" ? (
+                      // 自定义URL时显示所有可能的模型选项
                       <>
-                        <option value="deepseek-chat">DeepSeek Chat</option>
-                        <option value="deepseek-coder">DeepSeek Coder</option>
+                        <optgroup label="智谱AI (GLM)">
+                          {BASE_URL_MODEL_MAP["https://open.bigmodel.cn/api/paas/v4"].map((model) => (
+                            <option key={model} value={model}>{model}</option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="OpenAI">
+                          {BASE_URL_MODEL_MAP["https://api.openai.com/v1"].map((model) => (
+                            <option key={model} value={model}>{model}</option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="DeepSeek">
+                          {BASE_URL_MODEL_MAP["https://api.deepseek.com/v1"].map((model) => (
+                            <option key={model} value={model}>{model}</option>
+                          ))}
+                        </optgroup>
                       </>
                     ) : (
-                      <>
-                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-                        <option value="gpt-4">GPT-4</option>
-                        <option value="gpt-4-turbo">GPT-4 Turbo</option>
-                        <option value="gpt-4o">GPT-4o</option>
-                      </>
+                      // 未知的baseUrl，显示OpenAI的模型作为默认
+                      BASE_URL_MODEL_MAP["https://api.openai.com/v1"].map((model) => (
+                        <option key={model} value={model}>{model}</option>
+                      ))
                     )}
                     <option value="custom">自定义模型</option>
                   </select>

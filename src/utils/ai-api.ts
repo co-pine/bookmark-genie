@@ -98,7 +98,6 @@ ${bookmarkContext}
         temperature: this.settings.aiConfig.temperature,
         stream: true, // 启用流式响应
       };
-      console.log("requestBody", requestBody);
 
       const response = await fetch(
         `${this.settings.aiConfig.baseUrl}/chat/completions`,
