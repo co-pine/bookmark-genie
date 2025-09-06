@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ExtensionSettings } from '@/types';
-import { StorageManager } from '@/utils/storage';
-import { Settings, Save, Key, Zap, Palette, Keyboard } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import React, { useState, useEffect } from "react";
+import { ExtensionSettings } from "@/types";
+import { StorageManager } from "@/utils/storage";
+import { Settings, Save, Key, Zap, Palette, Keyboard } from "lucide-react";
+import { cn } from "@/utils/cn";
 
 interface SettingsPageProps {
   onClose: () => void;
@@ -10,7 +10,7 @@ interface SettingsPageProps {
 
 const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
   const [settings, setSettings] = useState<ExtensionSettings | null>(null);
-  const [activeTab, setActiveTab] = useState<'general' | 'ai'>('general');
+  const [activeTab, setActiveTab] = useState<"general" | "ai">("general");
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
@@ -22,37 +22,38 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
       const currentSettings = await StorageManager.getSettings();
       setSettings(currentSettings);
     } catch (error) {
-      console.error('加载设置失败:', error);
+      console.error("加载设置失败:", error);
     }
   };
 
   const handleSaveSettings = async () => {
     if (!settings) return;
-    
+
     setIsSaving(true);
     try {
       await StorageManager.saveSettings(settings);
-      
+
       // 立即应用主题变化
-      document.documentElement.classList.remove('light', 'dark');
-      
-      if (settings.theme === 'system') {
+      document.documentElement.classList.remove("light", "dark");
+
+      if (settings.theme === "system") {
         // 跟随系统主题
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.classList.add(prefersDark ? 'dark' : 'light');
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        document.documentElement.classList.add(prefersDark ? "dark" : "light");
       } else {
         // 使用固定主题
         document.documentElement.classList.add(settings.theme);
       }
-      
+
       // 显示保存成功提示
       setTimeout(() => setIsSaving(false), 1000);
     } catch (error) {
-      console.error('保存设置失败:', error);
+      console.error("保存设置失败:", error);
       setIsSaving(false);
     }
   };
-
 
   if (!settings) {
     return (
@@ -81,8 +82,8 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
       {/* Tabs */}
       <div className="flex border-b border-border">
         {[
-          { id: 'general', label: '常规设置', icon: Palette },
-          { id: 'ai', label: 'AI配置', icon: Zap }
+          { id: "general", label: "常规设置", icon: Palette },
+          { id: "ai", label: "AI配置", icon: Zap },
         ].map(({ id, label, icon: Icon }) => (
           <button
             key={id}
@@ -102,7 +103,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto p-4 space-y-6">
-        {activeTab === 'general' && (
+        {activeTab === "general" && (
           <div className="space-y-6">
             <div>
               <h3 className="text-sm font-medium mb-3">主题设置</h3>
@@ -112,11 +113,13 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                     type="radio"
                     name="theme"
                     value="system"
-                    checked={settings.theme === 'system'}
-                    onChange={(e) => setSettings({
-                      ...settings,
-                      theme: e.target.value as 'light' | 'dark' | 'system'
-                    })}
+                    checked={settings.theme === "system"}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        theme: e.target.value as "light" | "dark" | "system",
+                      })
+                    }
                     className="text-primary"
                   />
                   <span className="text-sm">跟随系统</span>
@@ -126,11 +129,13 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                     type="radio"
                     name="theme"
                     value="dark"
-                    checked={settings.theme === 'dark'}
-                    onChange={(e) => setSettings({
-                      ...settings,
-                      theme: e.target.value as 'light' | 'dark' | 'system'
-                    })}
+                    checked={settings.theme === "dark"}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        theme: e.target.value as "light" | "dark" | "system",
+                      })
+                    }
                     className="text-primary"
                   />
                   <span className="text-sm">深色主题</span>
@@ -140,11 +145,13 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                     type="radio"
                     name="theme"
                     value="light"
-                    checked={settings.theme === 'light'}
-                    onChange={(e) => setSettings({
-                      ...settings,
-                      theme: e.target.value as 'light' | 'dark' | 'system'
-                    })}
+                    checked={settings.theme === "light"}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        theme: e.target.value as "light" | "dark" | "system",
+                      })
+                    }
                     className="text-primary"
                   />
                   <span className="text-sm">浅色主题</span>
@@ -175,10 +182,12 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                 <input
                   type="checkbox"
                   checked={settings.autoSync}
-                  onChange={(e) => setSettings({
-                    ...settings,
-                    autoSync: e.target.checked
-                  })}
+                  onChange={(e) =>
+                    setSettings({
+                      ...settings,
+                      autoSync: e.target.checked,
+                    })
+                  }
                   className="text-primary"
                 />
                 <span className="text-sm">自动同步书签</span>
@@ -190,7 +199,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
           </div>
         )}
 
-        {activeTab === 'ai' && (
+        {activeTab === "ai" && (
           <div className="space-y-6">
             <div>
               <h3 className="text-sm font-medium mb-3 flex items-center">
@@ -199,45 +208,68 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
               </h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">API Base URL</label>
+                  <label className="block text-sm font-medium mb-2">
+                    API Base URL
+                  </label>
                   <select
                     value={settings.aiConfig.baseUrl}
-                    onChange={(e) => setSettings({
-                      ...settings,
-                      aiConfig: { ...settings.aiConfig, baseUrl: e.target.value }
-                    })}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        aiConfig: {
+                          ...settings.aiConfig,
+                          baseUrl: e.target.value,
+                        },
+                      })
+                    }
                     className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   >
-                    <option value="https://open.bigmodel.cn/api/paas/v4">智谱AI (GLM)</option>
+                    <option value="https://open.bigmodel.cn/api/paas/v4">
+                      智谱AI (GLM)
+                    </option>
                     <option value="https://api.openai.com/v1">OpenAI</option>
-                    <option value="https://api.deepseek.com/v1">DeepSeek</option>
+                    <option value="https://api.deepseek.com/v1">
+                      DeepSeek
+                    </option>
                     <option value="custom">自定义</option>
                   </select>
-                  {settings.aiConfig.baseUrl === 'custom' && (
+                  {settings.aiConfig.baseUrl === "custom" && (
                     <input
                       type="text"
                       placeholder="输入自定义API Base URL"
                       className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      onChange={(e) => setSettings({
-                        ...settings,
-                        aiConfig: { ...settings.aiConfig, baseUrl: e.target.value }
-                      })}
+                      onChange={(e) =>
+                        setSettings({
+                          ...settings,
+                          aiConfig: {
+                            ...settings.aiConfig,
+                            baseUrl: e.target.value,
+                          },
+                        })
+                      }
                     />
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">API密钥</label>
+                  <label className="block text-sm font-medium mb-2">
+                    API密钥
+                  </label>
                   <input
                     type="password"
                     value={settings.aiConfig.apiKey}
-                    onChange={(e) => setSettings({
-                      ...settings,
-                      aiConfig: { ...settings.aiConfig, apiKey: e.target.value }
-                    })}
+                    onChange={(e) =>
+                      setSettings({
+                        ...settings,
+                        aiConfig: {
+                          ...settings.aiConfig,
+                          apiKey: e.target.value,
+                        },
+                      })
+                    }
                     placeholder={
-                      settings.aiConfig.baseUrl.includes('bigmodel') 
-                        ? "输入您的智谱AI API密钥" 
+                      settings.aiConfig.baseUrl.includes("bigmodel")
+                        ? "输入您的智谱AI API密钥"
                         : "输入您的API密钥"
                     }
                     className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm"
@@ -248,25 +280,35 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">模型选择</label>
+                  <label className="block text-sm font-medium mb-2">
+                    模型选择
+                  </label>
                   <select
-                    value={settings.aiConfig.model === 'custom' ? 'custom' : settings.aiConfig.model}
+                    value={
+                      settings.aiConfig.model === "custom"
+                        ? "custom"
+                        : settings.aiConfig.model
+                    }
                     onChange={(e) => {
-                      if (e.target.value === 'custom') {
+                      if (e.target.value === "custom") {
                         setSettings({
                           ...settings,
-                          aiConfig: { ...settings.aiConfig, model: 'custom' }
+                          aiConfig: { ...settings.aiConfig, model: "custom" },
                         });
                       } else {
                         setSettings({
                           ...settings,
-                          aiConfig: { ...settings.aiConfig, model: e.target.value, customModel: '' }
+                          aiConfig: {
+                            ...settings.aiConfig,
+                            model: e.target.value,
+                            customModel: "",
+                          },
                         });
                       }
                     }}
                     className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm mb-2"
                   >
-                    {settings.aiConfig.baseUrl.includes('bigmodel') ? (
+                    {settings.aiConfig.baseUrl.includes("bigmodel") ? (
                       <>
                         <option value="glm-4-flash">GLM-4-Flash</option>
                         <option value="glm-4-plus">GLM-4-Plus</option>
@@ -276,7 +318,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                         <option value="glm-4v-plus">GLM-4V-Plus</option>
                         <option value="glm-4.5-air">GLM-4.5-Air</option>
                       </>
-                    ) : settings.aiConfig.baseUrl.includes('deepseek') ? (
+                    ) : settings.aiConfig.baseUrl.includes("deepseek") ? (
                       <>
                         <option value="deepseek-chat">DeepSeek Chat</option>
                         <option value="deepseek-coder">DeepSeek Coder</option>
@@ -291,15 +333,20 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
                     )}
                     <option value="custom">自定义模型</option>
                   </select>
-                  
-                  {settings.aiConfig.model === 'custom' && (
+
+                  {settings.aiConfig.model === "custom" && (
                     <input
                       type="text"
                       value={settings.aiConfig.customModel}
-                      onChange={(e) => setSettings({
-                        ...settings,
-                        aiConfig: { ...settings.aiConfig, customModel: e.target.value }
-                      })}
+                      onChange={(e) =>
+                        setSettings({
+                          ...settings,
+                          aiConfig: {
+                            ...settings.aiConfig,
+                            customModel: e.target.value,
+                          },
+                        })
+                      }
                       placeholder="输入自定义模型名称，如: glm-4-0520"
                       className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm"
                     />
@@ -308,28 +355,42 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">最大令牌数</label>
+                    <label className="block text-sm font-medium mb-2">
+                      最大令牌数
+                    </label>
                     <input
                       type="number"
                       value={settings.aiConfig.maxTokens}
-                      onChange={(e) => setSettings({
-                        ...settings,
-                        aiConfig: { ...settings.aiConfig, maxTokens: parseInt(e.target.value) }
-                      })}
+                      onChange={(e) =>
+                        setSettings({
+                          ...settings,
+                          aiConfig: {
+                            ...settings.aiConfig,
+                            maxTokens: parseInt(e.target.value),
+                          },
+                        })
+                      }
                       min="100"
                       max="4000"
                       className="w-full px-3 py-2 border border-input rounded-lg bg-background text-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">温度</label>
+                    <label className="block text-sm font-medium mb-2">
+                      温度
+                    </label>
                     <input
                       type="number"
                       value={settings.aiConfig.temperature}
-                      onChange={(e) => setSettings({
-                        ...settings,
-                        aiConfig: { ...settings.aiConfig, temperature: parseFloat(e.target.value) }
-                      })}
+                      onChange={(e) =>
+                        setSettings({
+                          ...settings,
+                          aiConfig: {
+                            ...settings.aiConfig,
+                            temperature: parseFloat(e.target.value),
+                          },
+                        })
+                      }
                       min="0"
                       max="2"
                       step="0.1"
@@ -341,7 +402,6 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
             </div>
           </div>
         )}
-
       </div>
 
       {/* Footer */}
@@ -357,7 +417,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
           )}
         >
           <Save className="w-4 h-4" />
-          <span>{isSaving ? '已保存' : '保存设置'}</span>
+          <span>{isSaving ? "已保存" : "保存设置"}</span>
         </button>
       </div>
     </div>
